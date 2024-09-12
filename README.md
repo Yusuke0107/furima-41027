@@ -11,7 +11,7 @@
 | birth_date         | date   | null: false |
 ### Association
 - has_many :items
-- has_one :order
+- has_many :orders
 
 
 ## Itemsテーブル
@@ -23,7 +23,7 @@
 | category_id        | integer    | null: false |
 | condition_id       | integer    | null: false |
 | shopping_cost_id   | integer    | null: false |
-| shopping_days_id   | integer    | null: false |
+| shopping_day_id    | integer    | null: false |
 | shopping_origin_id | integer    | null: false |
 | price              | integer    | null: false |
 ### Association
