@@ -11,15 +11,21 @@
 | birth_date         | date   | null: false |
 ### Association
 - has_many :items
+- has_one :order
 
 
 ## Itemsテーブル
-| Column          | Type       | Options     |
-|-----------------|------------|-------------|
-| user            | references | null: false, foreign_key: true |
-| item_name       | string     | null: false |
-| description     | text       | null: false |
-| price           | integer    | null: false |
+| Column             | Type       | Options     |
+|--------------------|------------|-------------|
+| user               | references | null: false, foreign_key: true |
+| item_name          | string     | null: false |
+| description        | text       | null: false |
+| category_id        | integer    | null: false |
+| condition_id       | integer    | null: false |
+| shopping_cost_id   | integer    | null: false |
+| shopping_days_id   | integer    | null: false |
+| shopping_origin_id | integer    | null: false |
+| price              | integer    | null: false |
 ### Association
 - belongs_to :user
 - has_one :order
@@ -31,19 +37,20 @@
 | user           | references | null: false, foreign_key: true |
 | item           | references | null: false, foreign_key: true |
 ### Association
-- belongs_to :shipping_address
 - belongs_to :item
-- has_one :shipping_address
+- belongs_to :user
+- has_one :shopping_address
 
 
-## shipping_addressesテーブル
-| Column         | Type       | Options     |
-|----------------|------------|-------------|
-| postal_code    | string     | null: false |
-| state          | string     | null: false |
-| city           | string     | null: false |
-| street_address | string     | null: false |
-| building_name  | string     |             |
-| phone_number   | string     | null: false |
+## Shopping_addressesテーブル
+| Column             | Type       | Options     |
+|--------------------|------------|-------------|
+| order              | references | null: false, foreign_key: true |
+| postal_code        | string     | null: false |
+| shopping_origin_id | integer    | null: false |
+| city               | string     | null: false |
+| street_address     | string     | null: false |
+| building_name      | string     |             |
+| phone_number       | string     | null: false |
 ### Association
 - belongs_to :order
