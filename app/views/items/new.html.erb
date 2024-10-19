@@ -88,42 +88,22 @@
             <span class="indispensable">必須</span>
           </div>
           <span class="sell-yen">¥</span>
-          <%= f.text_field :price, class:"price-input", id:"item-price", placeholder:"例）300", oninput: "calculateProfit()" %>
+          <%= f.text_field :price, class:"price-input", id:"item-price", placeholder:"例）300" %>
         </div>
         <div class="price-content">
           <span>販売手数料 (10%)</span>
           <span>
-            <span id='add-tax-price'>0</span>円
+            <span id='add-tax-price'></span>円
           </span>
         </div>
         <div class="price-content">
           <span>販売利益</span>
           <span>
-            <span id='profit'>0</span>円
+            <span id='profit'></span>円
           </span>
         </div>
       </div>
     </div>
-
-    <script>
-      function calculateProfit() {
-        const priceInput = document.getElementById('item-price');
-        const addTaxPrice = document.getElementById('add-tax-price');
-        const profit = document.getElementById('profit');
-
-        const price = parseFloat(priceInput.value);
-        if (!isNaN(price) && price >= 300) {
-          const tax = price * 0.1;
-          const sellingProfit = price - tax;
-
-          addTaxPrice.textContent = Math.floor(tax);
-          profit.textContent = Math.floor(sellingProfit);
-          } else {
-          addTaxPrice.textContent = '0';
-          profit.textContent = '0';
-          }
-      }
-    </script>
 
     <div class="caution">
       <p class="sentence">
