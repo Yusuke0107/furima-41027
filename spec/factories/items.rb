@@ -8,5 +8,7 @@ FactoryBot.define do
     shopping_origin_id { 1 }
     shopping_day_id { 1 }
     price { 300 }
+    
+    association :user
   end
 end

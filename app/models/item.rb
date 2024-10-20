@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   has_one_attached :image
+  belongs_to :user
 
   validates :image,              presence: { message: "can't be blank" }
   validates :item_name,          presence: { message: "can't be blank" }
@@ -13,5 +14,4 @@ class Item < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 300, message: 'must be greater than or equal to 300' }
   validates :price, numericality: { less_than_or_equal_to: 9999999, message: 'must be less than or equal to 9999999' }
   validates :price, numericality: { only_integer: true, message: 'must be an integer' }
-  validates :price, format: { with: /\A[0-9]+\z/, message: 'is not a number' }
 end

@@ -68,13 +68,17 @@ describe '商品出品機能' do
       @item.valid?
       expect(@item.errors.full_messages).to include 'Price must be less than or equal to 9999999'
     end
-    it '価格が半角数字以外の場合は登録できない' do
+    it 'priceがアルファベットの場合は登録できない' do
       @item.price = 'abc'
       @item.valid?
       expect(@item.errors.full_messages).to include 'Price is not a number'
+    end
+    it 'priceが全角数値の場合は登録できない' do
       @item.price = '１２３'
       @item.valid?
       expect(@item.errors.full_messages).to include 'Price is not a number'
+    end
+    it 'priceが整数でない場合は登録できない' do
       @item.price = '100.5'
       @item.valid?
       expect(@item.errors.full_messages).to include 'Price must be an integer'
@@ -103,4 +107,9 @@ describe '商品出品機能' do
       @item.shopping_day_id = 1
       @item.valid?
       expect(@item.errors.full_messages).to include "Shopping day can't be blank"
+    end
+    it 'userが紐づいていない場合は出品できない' do
+      @item.user = nil
+      @item.valid?
+      expect(@item.errors.full_messages).to include "User must exist"
     end
