@@ -1,11 +1,13 @@
 class Item < ApplicationRecord
   has_one_attached :image
   belongs_to :user
-  belongs_to :category, class_name: 'Category', foreign_key: 'category_id', optional: true
-  belongs_to :condition, class_name: 'Condition', foreign_key: 'condition_id', optional: true
-  belongs_to :shopping_cost, class_name: 'ShoppingCost', foreign_key: 'shopping_cost_id', optional: true
-  belongs_to :shopping_day, class_name: 'ShoppingDay', foreign_key: 'shopping_day_id', optional: true
-  belongs_to :shopping_origin, class_name: 'ShoppingOrigin', foreign_key: 'shopping_origin_id', optional: true
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :category
+  belongs_to :condition
+  belongs_to :shopping_cost
+  belongs_to :shopping_origin
+  belongs_to :shopping_day
+
 
   validates :image,              presence: { message: "can't be blank" }
   validates :item_name,          presence: { message: "can't be blank" }
