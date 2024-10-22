@@ -292,7 +292,6 @@ a {
   justify-content: space-between;
 }
 
-
 .star-btn {
   display: flex;
   align-items: center;
@@ -307,5 +306,6 @@ a {
 .star-count {
   font-size: 2vh;
 }
+
 
 /* //商品一覧 */
