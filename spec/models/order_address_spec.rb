@@ -4,20 +4,12 @@ RSpec.describe OrderAddress, type: :model do
   before do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.create(:item, user: @user)
-    @order_address = FactoryBot.build(:order_address)
+    @order_address = FactoryBot.build(:order_address, user: @user, item: @item)
   end
 
   describe '商品購入機能' do
     context 'データが保存できるとき' do
       it '全ての必須項目が存在すれば保存できる' do
-        expect(@order_address).to be_valid
-      end
-      it 'post_codeが3桁ハイフン4桁である場合は保存できる' do
-        @order_address.post_code = '123-4567' 
-        expect(@order_address).to be_valid
-      end
-      it 'phone_numberが10桁以上11桁以内の半角数値である場合は保存できる' do
-        @order_address.phone_number = '09012345678'
         expect(@order_address).to be_valid
       end
     end
@@ -81,6 +73,16 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.phone_number = '０９０１２３４５６７８'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Phone number must be 10 or 11 digits")
+      end
+      it 'itemが紐づいていなければ保存できない' do
+        @order_address.item_id = ''
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include "item can't be blank"
+      end
+      it 'userが紐づいていなければ保存できない' do
+        @order_address.user_id = ''
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include "user can't be blank"
       end
     end
   end
