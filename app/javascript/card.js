@@ -1,11 +1,10 @@
 const pay = () => {
-  const payjp = Payjp('pk_test_8a76a288e2b20807469b55df')
+  const payjp = Payjp("pk_test_8a76a288e2b20807469b55df")
   const elements = payjp.elements();
   const numberElement = elements.create('cardNumber');
   const expiryElement = elements.create('cardExpiry');
   const cvcElement = elements.create('cardCvc');
   const publicKey = gon.public_key
-
 
   numberElement.mount('#number-form');
   expiryElement.mount('#expiry-form');

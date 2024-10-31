@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
 
   def index
     @order_address = OrderAddress.new
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
   end
 
   def new
@@ -14,7 +15,7 @@ class OrdersController < ApplicationController
 
   def create
     @item = Item.find(params[:order_address][:item_id])
-    @order_address = OrderAddress.new(order_params.except(:token))
+    @order_address = OrderAddress.new(order_params)
     if @order_address.valid?
       pay_item
       @order_address.save
