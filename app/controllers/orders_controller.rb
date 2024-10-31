@@ -1,5 +1,4 @@
 class OrdersController < ApplicationController
-  attr_accessor :token
   before_action :authenticate_user!
   before_action :set_item, only: [:index]
   before_action :ensure_item_owner, only: [:index]
@@ -9,17 +8,12 @@ class OrdersController < ApplicationController
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
   end
 
-  def new
-    @order_address = OrderAddress.new
-  end
-
   def create
-    @item = Item.find(params[:order_address][:item_id])
+    @item = Item.find(order_params[:item_id])
     @order_address = OrderAddress.new(order_params)
     if @order_address.valid?
       pay_item
       @order_address.save
-      @item.update(sold_out: true)
       return redirect_to root_path
     else
         render :index, status: :unprocessable_entity
@@ -33,7 +27,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order_address).permit(:item_id, :user_id, :post_code, :shopping_origin_id, :city, :street_address, :building_name, :phone_number).merge(user_id: current_user.id, token: params[:token])
+    params.require(:order_address).permit(:post_code, :shopping_origin_id, :city, :street_address, :building_name, :phone_number).merge(user_id: current_user.id, token: params[:token], item_id: params[:order_address][:item_id],)
   end
 
   def pay_item
