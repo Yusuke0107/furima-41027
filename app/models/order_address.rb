@@ -8,7 +8,7 @@ class OrderAddress
   validates :street_address, presence: { message: "can't be blank" }
   validates :phone_number, presence: { message: "can't be blank" }, format: { with: /\A\d{10,11}\z/, message: "must be 10 or 11 digits" }
   validates :post_code, presence: { message: "can't be blank" }, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)" }
-  validates :shopping_origin_id, numericality: { other_than: 0, message: "can't be blank" }
+  validates :shopping_origin_id, numericality: { other_than: 1, message: "can't be blank" }
   validates :token, presence:true
 
   def save

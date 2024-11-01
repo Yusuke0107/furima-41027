@@ -3,13 +3,18 @@ require 'rails_helper'
 RSpec.describe OrderAddress, type: :model do
   before do
     @user = FactoryBot.create(:user)
-    @item = FactoryBot.create(:item, user: @user)
+    @item = FactoryBot.create(:item)
     @order_address = FactoryBot.build(:order_address, user: @user, item: @item)
   end
 
   describe '商品購入機能' do
     context 'データが保存できるとき' do
       it '全ての必須項目が存在すれば保存できる' do
+        expect(@order_address).to be_valid
+      end
+      it '建物名がなくても保存できる' do
+        expect(@order_address).to be_valid
+        @order_address.building_name = ''
         expect(@order_address).to be_valid
       end
     end
@@ -40,7 +45,7 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
       end
       it 'shopping_origin_idが空では登録できない' do
-        @order_address.shopping_origin_id = ''
+        @order_address.shopping_origin_id = '1'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include "Shopping origin can't be blank"
       end
@@ -77,12 +82,17 @@ RSpec.describe OrderAddress, type: :model do
       it 'itemが紐づいていなければ保存できない' do
         @order_address.item_id = ''
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include "item can't be blank"
+        expect(@order_address.errors.full_messages).to include "Item can't be blank"
       end
       it 'userが紐づいていなければ保存できない' do
         @order_address.user_id = ''
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include "user can't be blank"
+        expect(@order_address.errors.full_messages).to include "User can't be blank"
+      end
+      it 'tokenが空では登録できない' do
+        @order_address.token = ''
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include "Token can't be blank"
       end
     end
   end
