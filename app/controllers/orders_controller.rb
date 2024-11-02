@@ -39,7 +39,7 @@ class OrdersController < ApplicationController
   end
 
   def ensure_item_owner
-    if @item.sold_out || @item.user_id == current_user.id
+    if @item.sold_out? || @item.user_id == current_user.id
       redirect_to root_path
     end
   end
