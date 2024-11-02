@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if @item.sold_out
+    if @item.sold_out?
       redirect_to root_path
     end
   end
